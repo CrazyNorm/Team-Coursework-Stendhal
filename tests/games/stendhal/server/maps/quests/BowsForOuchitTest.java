@@ -39,6 +39,7 @@ public class BowsForOuchitTest {
 	private static final String QUEST_SLOT = "bows_ouchit";
 
 	private Player player = null;
+	private Player player2 = null;
 	private SpeakerNPC npc = null;
 	private Engine en = null;
 
@@ -61,6 +62,7 @@ public class BowsForOuchitTest {
 		quest.addToWorld();
 
 		player = PlayerTestHelper.createPlayer("bob");
+		player2 = PlayerTestHelper.createPlayer("Kiriko");
 	}
 
 	@Test
@@ -150,12 +152,18 @@ public class BowsForOuchitTest {
 		assertEquals("In the north is a cave with bears and other creatures. If you go to the north-east you will reach after some time the great city Ados. At the east is a biiig rock. Does Balduin still live there? You want to go south-east? Well.. you can reach Ados there too, but I think the way is a bit harder.", getReply(npc));
 		en.step(player, "task");
 		assertEquals("I don't have time for those things, sorry. Working.. working.. working..", getReply(npc));
+		
+		
+		// set player2 status
+		player2.setQuest(QUEST_SLOT, "hair");
+		en.step(player2, "hi");
 
-//		 he doesn't seem to reply to horse hairs
-		en.step(player, "horse hairs");
+		// he should be replying to horse hairs
+		en.step(player, "horse hair");
 		assertEquals("Hello, hello! Ouchit needs more horse hairs from my horses? No problem, here you are. Send Ouchit greetings from me.", getReply(npc));
-
-		en.step(player, "ouchit");
+		
+		// he should be replying to ouchit
+		en.step(player2, "ouchit");
 		assertEquals("Hello, hello! Ouchit needs more horse hairs from my horses? No problem, here you are. Send Ouchit greetings from me.", getReply(npc));
 		en.step(player, "bye");
 		assertEquals("Bye bye. Be careful on your way.", getReply(npc));
@@ -164,6 +172,7 @@ public class BowsForOuchitTest {
 		assertTrue(player.isEquipped("horse hair"));
 		assertEquals(player.getQuest(QUEST_SLOT),"hair");
 	}
+	
 
 	@Test
 	public void testBringHairs() {
