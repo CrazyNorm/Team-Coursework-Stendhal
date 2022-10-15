@@ -477,6 +477,16 @@ public class PlayerTest {
 		// regular outfit change should not use stored colors
 		assertThat(player.get("outfit_colors", "dress"), is(nullValue()));
 	}
+	/**
+	 * Test If the message is sent when attempting to change zones while a pet has not caught up
+	 */
+	@Test
+	public void testZoneChangingAllowed() {
+		Player player = PlayerTestHelper.createPlayer("test dummy");
+		
+		//Temporary test
+		assertThat(true, is(true));
+	}
 
 	/**
 	 * Test comparing client version to a known constant
