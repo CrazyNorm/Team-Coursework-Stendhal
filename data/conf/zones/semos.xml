@@ -728,10 +728,11 @@ Unfortunately I will not be able to visit Athor this year. I have run into a bit
     <portal x="15" y="6" ref="portal_to_second_floor">
       <destination zone="int_semos_wizards_tower_2" ref="portal_from_first_floor"/>
       <implementation
-        class-name="games.stendhal.server.entity.mapstuff.portal.KeyDestroyingDoor">
+        class-name="games.stendhal.server.entity.mapstuff.portal.ConditionAndActionPortal">
         <parameter name="class">transparent</parameter>
-        <parameter name="key">candle</parameter>
-        <parameter name="rejected">You must hold your candle over this spot, walk here with a candle and it will float.</parameter>
+        <parameter name="condition">new AndCondition(new QuestInStateCondition("zekiels_practical_test","second_step"), new PlayerHasItemWithHimCondition("candle"))</parameter>
+        <parameter name="rejected">You must answer the question correctly, then hold your candle over this spot, walk here with a candle and it will float.</parameter>
+        <parameter name="action">new DropItemAction("candle")</parameter>
       </implementation>
       <attribute name="hidden"/>
     </portal>
