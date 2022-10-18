@@ -231,9 +231,9 @@ public class FruitsForCoralia extends AbstractQuest {
 				new QuestActiveCondition(QUEST_SLOT),
 				new GreetingMatchesNameCondition(npc.getName())),
 			ConversationStates.ATTENDING,
-			"Hello again. If you've brought me some fresh fruits for my #hat, I'll happily take them!",
+			"Hello again. If you've brought me some fresh fruits for my #hat, or #everything, I'll happily take them!",
 			null);
-
+   
 
 
     	// specific fruit info
@@ -339,8 +339,21 @@ public class FruitsForCoralia extends AbstractQuest {
     				QUEST_SLOT,
     				"Wonderful! Did you bring anything else with you?", "I already have enough of those.",
     				completeAction,
-    				ConversationStates.ATTENDING));
+    				ConversationStates.ATTENDING));	
     	}
+    	
+    	
+    	// player says he has everything
+		npc.add(ConversationStates.ATTENDING,
+				ConversationPhrases.combine(ConversationPhrases.QUEST_MESSAGES, "everything"),
+				new QuestCompletedCondition(QUEST_SLOT),
+				ConversationStates.QUESTION_2,
+				"My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.",
+				null
+				);
+  
+		
+		
     }
 
 	@Override

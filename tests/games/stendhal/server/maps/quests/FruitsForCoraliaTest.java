@@ -165,7 +165,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, I'll happily take them!", getReply(npc));
+		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, or #everything, I'll happily take them!", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -199,6 +199,22 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		assertEquals("Bye.", getReply(npc));
 
+		// -----------------------------------------------
+		en.step(player, "hi");
+		
+		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, or #everything, I'll happily take them!", getReply(npc));
+		
+		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
+		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
+		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
+		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
+		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
+		
+		en.step(player, "everything");
+		assertEquals("My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.", getReply(npc));
+		en.step(player, "bye");
+		assertEquals("Bye.", getReply(npc));
 		// -----------------------------------------------
 
 		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
@@ -269,8 +285,7 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("Bye.", getReply(npc));
 
 		// -----------------------------------------------
-
-
+		
 		// -----------------------------------------------
 
 		en.step(player, "hi");
