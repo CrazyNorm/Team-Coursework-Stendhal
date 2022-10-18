@@ -342,16 +342,6 @@ public class FruitsForCoralia extends AbstractQuest {
     				ConversationStates.ATTENDING));	
     	}
     	
-    	
-    	// player says he has everything
-		npc.add(ConversationStates.ATTENDING,
-				ConversationPhrases.combine(ConversationPhrases.QUEST_MESSAGES, "everything"),
-				new QuestCompletedCondition(QUEST_SLOT),
-				ConversationStates.QUESTION_2,
-				"My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.",
-				null
-				);
-  
 		
 		
     }
