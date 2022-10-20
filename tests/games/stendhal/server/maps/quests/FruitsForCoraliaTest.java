@@ -35,8 +35,12 @@ import utilities.ZonePlayerAndNPCTestImpl;
 public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 	private Player player = null;
+	private Player player2 = null;
 	private SpeakerNPC npc = null;
+	private SpeakerNPC npc2 = null;
+
 	private Engine en = null;
+	private Engine en2 = null;
 
 	private String questSlot;
 	private static final String ZONE_NAME = "int_ados_tavern_0";
@@ -63,12 +67,15 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		questSlot = quest.getSlotName();
 
 		player = PlayerTestHelper.createPlayer("bob");
+		player2 = PlayerTestHelper.createPlayer("carmen");
 	}
 
 	@Test
 	public void testQuest() {
 		npc = SingletonRepository.getNPCList().get("Coralia");
+		npc2 = SingletonRepository.getNPCList().get("Coralia");
 		en = npc.getEngine();
+		en2 = npc2.getEngine();
 
 
 		// -----------------------------------------------
@@ -200,32 +207,17 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("Bye.", getReply(npc));
 
 		// -----------------------------------------------
+		// -----------------------------------------------
+
+		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
+
+		// -----------------------------------------------
+
 		en.step(player, "hi");
-		
+
+		// -----------------------------------------------
+
 		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, or #everything, I'll happily take them!", getReply(npc));
-		
-		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
-		PlayerTestHelper.equipWithStackableItem(player, "banana", 5);
-		PlayerTestHelper.equipWithStackableItem(player, "grapes", 2);
-		PlayerTestHelper.equipWithStackableItem(player, "pear", 4);
-		PlayerTestHelper.equipWithStackableItem(player, "pomegranate", 2);
-		PlayerTestHelper.equipWithStackableItem(player, "watermelon", 1);
-		
-		en.step(player, "everything");
-		assertEquals("My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.", getReply(npc));
-		en.step(player, "bye");
-		assertEquals("Bye.", getReply(npc));
-		// -----------------------------------------------
-
-		PlayerTestHelper.equipWithStackableItem(player, "cherry", 9);
-
-		// -----------------------------------------------
-
-		en.step(player, "hi");
-
-		// -----------------------------------------------
-
-		assertEquals("Hello again. If you've brought me some fresh fruits for my #hat, I'll happily take them!", getReply(npc));
 
 		// -----------------------------------------------
 
@@ -316,7 +308,6 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		// -----------------------------------------------
 
-
 		// -----------------------------------------------
 
 		en.step(player, "hi");
@@ -347,5 +338,6 @@ public class FruitsForCoraliaTest extends ZonePlayerAndNPCTestImpl {
 
 		assertEquals("Bye.", getReply(npc));
 		*/
+		
 	}
 }

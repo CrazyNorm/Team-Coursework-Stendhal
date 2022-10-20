@@ -22,6 +22,8 @@ import games.stendhal.server.entity.npc.action.SetQuestToTimeStampAction;
 import games.stendhal.server.entity.npc.condition.AndCondition;
 import games.stendhal.server.entity.npc.condition.GreetingMatchesNameCondition;
 import games.stendhal.server.entity.npc.condition.NotCondition;
+import games.stendhal.server.entity.npc.condition.OrCondition;
+import games.stendhal.server.entity.npc.condition.PlayerHasItemWithHimCondition;
 import games.stendhal.server.entity.npc.condition.QuestActiveCondition;
 import games.stendhal.server.entity.npc.condition.QuestCompletedCondition;
 import games.stendhal.server.entity.npc.condition.QuestInStateCondition;
@@ -32,7 +34,6 @@ import games.stendhal.server.entity.npc.condition.TimePassedCondition;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.Region;
 import games.stendhal.server.util.ItemCollection;
-
 /**
  * QUEST: Fruits for Coralia
  *
@@ -85,7 +86,7 @@ public class FruitsForCoralia extends AbstractQuest {
 	 * Required items for the quest.
 	 */
 	protected static final String NEEDED_ITEMS = "apple=4;banana=5;cherry=9;grapes=2;pear=4;watermelon=1;pomegranate=2";
-
+	
     @Override
     public void addToWorld() {
         fillQuestInfo("Fruits for Coralia",
@@ -121,7 +122,7 @@ public class FruitsForCoralia extends AbstractQuest {
  	public String getRegion() {
  		return Region.ADOS_CITY;
  	}
-
+ 	boolean all_items_equipped = false;
  	@Override
 	public List<String> getHistory(final Player player) {
 		final List<String> res = new ArrayList<String>();
@@ -147,8 +148,7 @@ public class FruitsForCoralia extends AbstractQuest {
         	res.add("I brought Coralia the fruits she needed for her hat and she restored it to its old radiance.");
 		}
 		return res;
-	}
-
+ 	}
     public void prepareQuestStep() {
     	SpeakerNPC npc = npcs.get("Coralia");
 
@@ -299,6 +299,7 @@ public class FruitsForCoralia extends AbstractQuest {
     		null,
     		new SayRequiredItemsFromCollectionAction(QUEST_SLOT, "I'd still like [items]. Have you brought any?"));
 
+    	  
     	// player says he didn't bring any items
 		npc.add(ConversationStates.QUESTION_2,
 			ConversationPhrases.NO_MESSAGES,
@@ -330,6 +331,8 @@ public class FruitsForCoralia extends AbstractQuest {
     	final ItemCollection items = new ItemCollection();
     	items.addFromQuestStateString(NEEDED_ITEMS);
     	for (final Map.Entry<String, Integer> item : items.entrySet()) {
+    		System.out.println(item.getKey());
+    		System.out.println(item.getValue());
     		npc.add(ConversationStates.QUESTION_2,
     			item.getKey(),
     			new QuestActiveCondition(QUEST_SLOT),
@@ -342,9 +345,89 @@ public class FruitsForCoralia extends AbstractQuest {
     				ConversationStates.ATTENDING));	
     	}
     	
+//    	// check if got all items in bag
+    	ChatAction action = new MultipleActions(
+    			
+			new CollectRequestedItemsAction("apple",
+    				QUEST_SLOT,
+    				"Now collecting apples.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("banana",
+    				QUEST_SLOT,
+    				"Now collecting bananas.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("pear",
+    				QUEST_SLOT,
+   				"Now collecting pears.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("cherry",
+    				QUEST_SLOT,
+    				"Now collecting cherries.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("watermelon",
+    				QUEST_SLOT,
+    				"Now collecting watermelons.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("grapes",
+    				QUEST_SLOT,
+    				"Now collecting grapes.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING),
+			new CollectRequestedItemsAction("pomegranate",
+    				QUEST_SLOT,
+    				"Now collecting pomegranates.","I already have enough of those.",
+    				completeAction,
+    				ConversationStates.ATTENDING)
+			);
 		
+    	npc.add(ConversationStates.ATTENDING,
+    			"everything",
+    			new AndCondition(
+					new QuestActiveCondition(QUEST_SLOT),
+					new PlayerHasItemWithHimCondition("apple",4),
+					new PlayerHasItemWithHimCondition("banana",5),
+					new PlayerHasItemWithHimCondition("cherry",9),
+					new PlayerHasItemWithHimCondition("grapes",2),
+					new PlayerHasItemWithHimCondition("pear",4),
+					new PlayerHasItemWithHimCondition("pomegranate",2),
+					new PlayerHasItemWithHimCondition("watermelon",1)
+					),
+			ConversationStates.ATTENDING,
+			null,
+			action);
+    	
+	    npc.add(ConversationStates.ATTENDING,
+				"everything",
+				new OrCondition(
+					new NotCondition(new PlayerHasItemWithHimCondition("apple",4)),
+					new NotCondition(new PlayerHasItemWithHimCondition("banana",5)),
+					new NotCondition(new PlayerHasItemWithHimCondition("cherry",9)),
+					new NotCondition(new PlayerHasItemWithHimCondition("grapes",2)),
+					new NotCondition(new PlayerHasItemWithHimCondition("pear",4)),
+					new NotCondition(new PlayerHasItemWithHimCondition("pomegranate",2)),
+					new NotCondition(new PlayerHasItemWithHimCondition("watermelon",1))
+					),
+			ConversationStates.ATTENDING,
+			"You haven't got all the items needed. Try again when you have all the items needed in your bag.",
+			null);}
+    
+	
+//    	
+//		npc.add(ConversationStates.ATTENDING,
+//				"everything",
+//				new QuestActiveCondition(QUEST_SLOT),
+//				ConversationStates.QUEST_ITEM_QUESTION,
+//				"My hat has never looked so delightful! Thank you ever so much! Here, take this as a reward.",
+//				// need to implement check items and stuff
+//				null
+//				);
+//    } 
 		
-    }
 
 	@Override
 	public String getNPCName() {
