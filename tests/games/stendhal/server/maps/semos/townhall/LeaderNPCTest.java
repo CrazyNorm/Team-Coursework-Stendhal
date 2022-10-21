@@ -193,14 +193,14 @@ public class LeaderNPCTest {
 		player.drop(weapon8);
 		
 		final Item weapon9 = new Item("rod of the gm", "club", "subclass", null);
-		weapon8.setEquipableSlots(Arrays.asList("lhand"));
-		weapon8.put("atk", 100);
-		weapon8.put("rate", 2);
+		weapon9.setEquipableSlots(Arrays.asList("lhand"));
+		weapon9.put("atk", 100);
+		weapon9.put("rate", 2);
 		player.equipToInventoryOnly(weapon9);
 		assertTrue(player.isEquipped("rod of the gm"));
 
 		assertTrue(en.step(player, "weapon"));
-		assertEquals("That rod of the gm is a powerful weapon, it has a good damage to rate ratio. It should be useful against strong creatures. Remember though that something weaker but faster may suffice against lower level creatures.", getReply(npc));
+		assertEquals("That rod of the gm is a powerful weapon, it has a good damage to rate ratio. It has a fast rate and powerful strength! It will be good against all creatures.", getReply(npc));
 		player.drop(weapon9);
 
 		//say goodbye
