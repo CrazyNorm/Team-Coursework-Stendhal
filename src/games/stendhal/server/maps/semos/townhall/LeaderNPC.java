@@ -77,9 +77,17 @@ public class LeaderNPC implements ZoneConfigurator {
 					        		} else if (damage >= 5) {
 					        			comment = "That " + weapon.getName() + " is a powerful weapon, it has a good damage to rate ratio.";
 					        			if (weapon.getAttackRate() < 3) {
-					        				comment += " Despite the fast rate being useful, the low attack will not help you against strong creatures. Something heavier would be better then.";
+					        				
+					        				if (weapon.getAttack()<99){
+					        					comment += " Despite the fast rate being useful, the low attack will not help you against strong creatures. Something heavier would be better then.";
+					        					}
+					        				else{
+					        					comment += " It has a fast rate and powerful strength! It will be good against all creatures.";
+					        				}
+
 					        			} else if (weapon.getAttackRate() > 6) {
 					        				comment +=  " It should be useful against strong creatures. Remember though that something weaker but faster may suffice against lower level creatures.";
+
 					        			}
 					        		} else {
 					        			comment = "Well, your " + weapon.getName() + " has quite low damage capability, doesn't it? You should look for something with a better attack to rate ratio.";
