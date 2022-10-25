@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.server.entity.npc.behaviour.impl.OutfitChangerBehaviour.ExpireOutfit;
+//import games.stendhal.server.entity.npc.behaviour.impl.OutfitChangerBehaviour;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
@@ -67,5 +68,85 @@ public class OutfitChangerBehaviourTest {
 		assertTrue(cloth3.equals(cloth));
 
 	}
+	/**
+	 * Test for getting not random temporary outfits from put on Outfit, doing multiple times cause to check for randomness
+	 */
+	@Test
+	public void testPutOnOutfit1() {
+		Map<String, Integer> priceList = new HashMap<String, Integer>();
+		OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		OutfitChangerBehaviour behaviour2 = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		
+		Player player = PlayerTestHelper.createPlayer("bob");
+		Player player2 = PlayerTestHelper.createPlayer("bob");
+		behaviour.putOnOutfit(player,"mask");
+		behaviour2.putOnOutfit(player2,"mask");
+		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
+		
+		
+	}
+	/**
+	 * Test for getting not random temporary outfits from put on Outfit, doing multiple times cause to check for randomness
+	 */
+	@Test
+	public void testPutOnOutfit2() {
+		Map<String, Integer> priceList = new HashMap<String, Integer>();
+		OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		OutfitChangerBehaviour behaviour2 = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		
+		Player player = PlayerTestHelper.createPlayer("bob");
+		Player player2 = PlayerTestHelper.createPlayer("bob");
+		behaviour.putOnOutfit(player,"mask");
+		behaviour2.putOnOutfit(player2,"mask");
+		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
+	}
+	/**
+	 * Test for getting not random temporary outfits from put on Outfit, doing multiple times cause to check for randomness
+	 */
+	@Test
+	public void testPutOnOutfit3() {
+		Map<String, Integer> priceList = new HashMap<String, Integer>();
+		OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		OutfitChangerBehaviour behaviour2 = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		
+		Player player = PlayerTestHelper.createPlayer("bob");
+		Player player2 = PlayerTestHelper.createPlayer("bob");
+		behaviour.putOnOutfit(player,"mask");
+		behaviour2.putOnOutfit(player2,"mask");
+		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
+	}
+	/**
+	 * Test for getting not random temporary outfits from put on Outfit, doing multiple times cause to check for randomness
+	 */
+	@Test
+	public void testPutOnOutfit4() {
+		Map<String, Integer> priceList = new HashMap<String, Integer>();
+		OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		OutfitChangerBehaviour behaviour2 = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		
+		Player player = PlayerTestHelper.createPlayer("bob");
+		Player player2 = PlayerTestHelper.createPlayer("bob");
+		behaviour.putOnOutfit(player,"mask");
+		behaviour2.putOnOutfit(player2,"mask");
+		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
+		
+	}
+	/**
+	 * Test for getting not random temporary outfits from put on Outfit, doing multiple times cause to check for randomness
+	 */
+	@Test
+	public void testPutOnOutfit5() {
+		Map<String, Integer> priceList = new HashMap<String, Integer>();
+		OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		OutfitChangerBehaviour behaviour2 = new OutfitChangerBehaviour(priceList, 300, "Your mask has worn off.");
+		
+		Player player = PlayerTestHelper.createPlayer("bob");
+		Player player2 = PlayerTestHelper.createPlayer("bob");
+		behaviour.putOnOutfit(player,"mask");
+		behaviour2.putOnOutfit(player2,"mask");
+		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
+		
+	}
+	
 
 }

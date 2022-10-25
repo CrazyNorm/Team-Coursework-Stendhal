@@ -298,4 +298,6 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	public int getEndurance() {
 		return endurance;
 	}
+
+
 }
