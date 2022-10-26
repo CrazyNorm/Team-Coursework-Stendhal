@@ -22,6 +22,8 @@ import games.stendhal.common.grammar.ItemParserResult;
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.events.TurnListener;
 import games.stendhal.server.entity.Outfit;
+import games.stendhal.server.entity.npc.ConversationPhrases;
+import games.stendhal.server.entity.npc.ConversationStates;
 import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.player.Player;
 
@@ -171,6 +173,13 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 
 		if (player.isEquipped("money", charge)) {
 			player.drop("money", charge);
+			if (outfitType == "mask") {
+				final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
+				int num_masks = possibleNewOutfits.size();
+				String string = String.format("What mas would you want from 1 - $s: ", num_masks);
+				seller.say(string);
+			}
+			
 			putOnOutfit(player, outfitType);
 			return true;
 		} else {
@@ -231,13 +240,19 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 	 * @param outfitType the outfit to wear
 	 */
 	public void putOnOutfit(final Player player, final String outfitType) {
+		final Outfit newOutfit;
 		if (resetBeforeChange) {
 			// cannot use OutfitChangerBehaviour.returnToOriginalOutfit(player) as it checks if the outfit was rented from here
 			player.returnToOriginalOutfit();
 		}
 
 		final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
-		final Outfit newOutfit = Rand.rand(possibleNewOutfits);
+		if (outfitType != "mask") {
+			newOutfit = Rand.rand(possibleNewOutfits);
+		}
+		else {
+			newOutfit = possibleNewOutfits.get(0);
+		}
 		player.setOutfit(newOutfit.putOver(player.getOutfit()), true);
 		player.registerOutfitExpireTime(endurance);
 	}
