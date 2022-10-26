@@ -2891,6 +2891,10 @@ public class Player extends DressedEntity implements UseListener {
 				handleLeaveZone(nx, ny);
 				return;
 			}
+		} else {
+			if (getZone().leavesZone(this, nx, ny)) {
+				this.sendPrivateText(NotificationType.ERROR, "You must wait for your pet to catch up before moving between zones");
+			}
 		}
 		if (isGhost()) {
 			this.move(getX(), getY(), nx, ny);

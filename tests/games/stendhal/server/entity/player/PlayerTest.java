@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 
@@ -31,7 +32,9 @@ import org.junit.Test;
 
 import games.stendhal.common.KeyedSlotUtil;
 import games.stendhal.common.constants.Nature;
+import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
+import games.stendhal.server.core.rp.StendhalRPAction;
 import games.stendhal.server.entity.Entity;
 import games.stendhal.server.entity.Outfit;
 import games.stendhal.server.entity.item.Item;
@@ -41,6 +44,7 @@ import games.stendhal.server.maps.MockStendlRPWorld;
 import marauroa.common.game.RPObject;
 import marauroa.server.game.db.DatabaseFactory;
 import utilities.PlayerTestHelper;
+import games.stendhal.server.entity.creature.Sheep;
 
 public class PlayerTest {
 	private String playername = "player";
@@ -477,7 +481,25 @@ public class PlayerTest {
 		// regular outfit change should not use stored colors
 		assertThat(player.get("outfit_colors", "dress"), is(nullValue()));
 	}
-
+	/**
+	 * Test for an error message when zone changing with a pet/sheep
+	 */
+	@Test
+	public void testZoneChanging() {
+		//Assign
+		StendhalRPZone srpz = new StendhalRPZone("0_semos_city",100,100);
+		SingletonRepository.getRPWorld().addRPZone(srpz);
+		Player player2 = PlayerTestHelper.createPlayer("petTest");
+		//Action
+		player2.teleport(srpz, 10, 12, null, null);
+		Sheep testSheep = new Sheep(player2);
+		player2.teleport(srpz, -1, 12, null, null);
+		StendhalRPAction.placeat(srpz, testSheep, 11, 12);
+		player2.handleSimpleCollision(-1, 12);
+		String message = PlayerTestHelper.getPrivateReply(player2);
+		//Assert
+		assertEquals("You must wait for your pet to catch up before moving between zones", message);
+	}
 	/**
 	 * Test comparing client version to a known constant
 	 */
