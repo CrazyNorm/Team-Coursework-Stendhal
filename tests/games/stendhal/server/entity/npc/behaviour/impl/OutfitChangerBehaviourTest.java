@@ -78,8 +78,8 @@ public class OutfitChangerBehaviourTest {
 		
 		Player player = PlayerTestHelper.createPlayer("bob");
 		Player player2 = PlayerTestHelper.createPlayer("bob");
-		behaviour.putOnOutfit(player,"mask");
-		behaviour2.putOnOutfit(player2,"mask");
+		behaviour.putOnOutfit(player,"mask 1");
+		behaviour2.putOnOutfit(player2,"mask 1");
 		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
 		
 		
@@ -95,8 +95,8 @@ public class OutfitChangerBehaviourTest {
 		
 		Player player = PlayerTestHelper.createPlayer("bob");
 		Player player2 = PlayerTestHelper.createPlayer("bob");
-		behaviour.putOnOutfit(player,"mask");
-		behaviour2.putOnOutfit(player2,"mask");
+		behaviour.putOnOutfit(player,"mask 2");
+		behaviour2.putOnOutfit(player2,"mask 2");
 		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
 	}
 	/**
@@ -110,8 +110,8 @@ public class OutfitChangerBehaviourTest {
 		
 		Player player = PlayerTestHelper.createPlayer("bob");
 		Player player2 = PlayerTestHelper.createPlayer("bob");
-		behaviour.putOnOutfit(player,"mask");
-		behaviour2.putOnOutfit(player2,"mask");
+		behaviour.putOnOutfit(player,"mask 3");
+		behaviour2.putOnOutfit(player2,"mask 3");
 		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
 	}
 	/**
@@ -125,8 +125,8 @@ public class OutfitChangerBehaviourTest {
 		
 		Player player = PlayerTestHelper.createPlayer("bob");
 		Player player2 = PlayerTestHelper.createPlayer("bob");
-		behaviour.putOnOutfit(player,"mask");
-		behaviour2.putOnOutfit(player2,"mask");
+		behaviour.putOnOutfit(player,"mask 4");
+		behaviour2.putOnOutfit(player2,"mask 4");
 		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
 		
 	}
@@ -141,8 +141,8 @@ public class OutfitChangerBehaviourTest {
 		
 		Player player = PlayerTestHelper.createPlayer("bob");
 		Player player2 = PlayerTestHelper.createPlayer("bob");
-		behaviour.putOnOutfit(player,"mask");
-		behaviour2.putOnOutfit(player2,"mask");
+		behaviour.putOnOutfit(player,"mask 5");
+		behaviour2.putOnOutfit(player2,"mask 5");
 		assertTrue(player.getOutfit().getLayer("mask").equals(player2.getOutfit().getLayer("mask")));
 		
 	}

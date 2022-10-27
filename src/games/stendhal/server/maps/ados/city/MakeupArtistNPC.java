@@ -71,10 +71,16 @@ public class MakeupArtistNPC implements ZoneConfigurator {
 				        "dress",
 				        "I read stories that goblins wear a dress as a kind of armor! If you're scared of goblins, like me, maybe you can buy a dress somewhere. ");
 				//addReply("offer", "Normally I sell masks. But I ran out of clothes and cannot by new ones until the cloth seller gets back from his search.");
+				addReply("offer", "I sell 6 different masks. Ask to buy 'mask 1', 'mask 2', 'mask 3' ... etc ");
 				addGoodbye("Bye, come back soon.");
 
 				final Map<String, Integer> priceList = new HashMap<String, Integer>();
-				priceList.put("mask", 20);
+				priceList.put("mask 1", 20);
+				priceList.put("mask 2", 20);
+				priceList.put("mask 3", 20);
+				priceList.put("mask 4", 20);
+				priceList.put("mask 5", 20);
+				priceList.put("mask 6", 20);
 				final OutfitChangerBehaviour behaviour = new OutfitChangerBehaviour(priceList, MINUTES_BEFORE_WEAR_OFF, "Your mask has worn off.");
 				new OutfitChangerAdder().addOutfitChanger(this, behaviour, "buy");
 			}

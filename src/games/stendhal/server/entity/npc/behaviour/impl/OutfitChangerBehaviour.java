@@ -22,8 +22,7 @@ import games.stendhal.common.grammar.ItemParserResult;
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.events.TurnListener;
 import games.stendhal.server.entity.Outfit;
-import games.stendhal.server.entity.npc.ConversationPhrases;
-import games.stendhal.server.entity.npc.ConversationStates;
+
 import games.stendhal.server.entity.npc.EventRaiser;
 import games.stendhal.server.entity.player.Player;
 
@@ -61,7 +60,7 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 				new Outfit("dress=992"),
 				new Outfit("dress=993"),
 				new Outfit("dress=994")));
-
+		// hair & hat are set to "-1" so that they are not drawn over the mask
 		outfitTypes.put("mask", Arrays.asList(
 				// hair & hat are set to "-1" so that they are not drawn over the mask
 				new Outfit("mask=994,hair=-1,hat=-1"),
@@ -70,6 +69,14 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 				new Outfit("mask=997,hair=-1,hat=-1"),
 				new Outfit("mask=998,hair=-1,hat=-1"),
 				new Outfit("mask=999,hair=-1,hat=-1")));
+
+		outfitTypes.put("mask 1", Arrays.asList(new Outfit("mask=994,hair=-1,hat=-1")));
+				
+		outfitTypes.put("mask 2", Arrays.asList(new Outfit("mask=995,hair=-1,hat=-1")));
+		outfitTypes.put("mask 3", Arrays.asList(new Outfit("mask=996,hair=-1,hat=-1")));
+		outfitTypes.put("mask 4", Arrays.asList(new Outfit("mask=997,hair=-1,hat=-1")));
+		outfitTypes.put("mask 5", Arrays.asList(new Outfit("mask=998,hair=-1,hat=-1")));
+		outfitTypes.put("mask 6", Arrays.asList(new Outfit("mask=999,hair=-1,hat=-1")));
 
 		// wedding dress for brides
 		// it seems this must be an array as list even though it's only one item
@@ -173,12 +180,6 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 
 		if (player.isEquipped("money", charge)) {
 			player.drop("money", charge);
-			if (outfitType == "mask") {
-				final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
-				int num_masks = possibleNewOutfits.size();
-				String string = String.format("What mas would you want from 1 - $s: ", num_masks);
-				seller.say(string);
-			}
 			
 			putOnOutfit(player, outfitType);
 			return true;
@@ -247,12 +248,11 @@ public class OutfitChangerBehaviour extends MerchantBehaviour {
 		}
 
 		final List<Outfit> possibleNewOutfits = outfitTypes.get(outfitType);
-		if (outfitType != "mask") {
-			newOutfit = Rand.rand(possibleNewOutfits);
-		}
-		else {
-			newOutfit = possibleNewOutfits.get(0);
-		}
+
+		newOutfit = Rand.rand(possibleNewOutfits);
+
+			
+
 		player.setOutfit(newOutfit.putOver(player.getOutfit()), true);
 		player.registerOutfitExpireTime(endurance);
 	}
