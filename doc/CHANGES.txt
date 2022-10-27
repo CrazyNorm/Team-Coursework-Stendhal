@@ -3,6 +3,20 @@ Changelog
 ---------
 
 
+1.40uom
+
+*feature*
+- Coralia now accepts "everything" as a valid command for making fish soup
+- Fidorea now provides different masks other then random ones
+
+*fixes*
+- fix a bug where Florence Bouillabaisse is not found when using /teleportto command
+- fix a bug where Karl is not responding to "horse hair" in the Bows for Ouchit quest
+- Lieutenant Drilenun now see "rod of the GM" as the best weapon in the game
+- Haunchy now accepts charcoal as coal in the Coal for Haunchy quest
+- sheep pet is no longer preventing player to travel between zones
+- cheating on Zekiel's Practical Test is now impossible
+
 1.40
 
 *world*

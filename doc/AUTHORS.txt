@@ -201,3 +201,21 @@ Notable contributors:
 - SnowFlake
   · Maps maker
   · NPCs
+
+Developers who have contributed to Stendhal by providing bug fixes
+- Rishi Ravikumar
+  · Fish Soup for Hughie bug fix
+- Entian Tu
+  · Why does he ignore "horse hair" bug fix
+- Liam Turner
+  · Lieutenant weapon bug fix
+- Ryan Sullivan
+  · Haunchy doesn't accept charcoal bug fix
+- Hank Bell
+  · Sheep pet prevents travel between zones bug fix
+- Junle Yu
+  · Coralia should have option to accept everything bug fix
+- Alexander Hargrave
+  · Players can’t choose what masks they get from Fidorea bug fix
+- Daniel Gardiner
+  · Cheating on Zekiel's Practical Test bug fix
