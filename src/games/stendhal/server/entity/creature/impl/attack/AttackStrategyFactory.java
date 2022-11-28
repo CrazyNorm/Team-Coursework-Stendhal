@@ -15,6 +15,7 @@ package games.stendhal.server.entity.creature.impl.attack;
 import java.util.Map;
 
 public class AttackStrategyFactory {
+	private static final AttackStrategy CHARMED = new Charmed();
 	private static final AttackStrategy HAND_TO_HAND = new HandToHand();
 	private static final AttackStrategy COWARD = new Coward();
 	private static final AttackStrategy STUPID_COWARD = new StupidCoward();
@@ -26,7 +27,9 @@ public class AttackStrategyFactory {
 
 	public static AttackStrategy get(final Map<String, String> aiProfiles) {
 
-		if (aiProfiles.containsKey("archer")) {
+		if (aiProfiles.containsKey("charmed")) {
+			return CHARMED;
+		} else if (aiProfiles.containsKey("archer")) {
 			return new RangeAttack(aiProfiles.get("archer"));
 		} else if (aiProfiles.containsKey("coward")) {
 			return COWARD;
