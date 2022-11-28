@@ -21,6 +21,25 @@
       <slot name="rhand"/>
     </equipable>
   </item>
+  
+  <item name="magical pipe">
+    <type class="tool" subclass="magical_pipe" tileid="-1"/>
+    <description>You see a Magical Pipe, it can block creatures from attacking you.</description>
+    <implementation class-name="games.stendhal.server.entity.item.MagicalPipe"/>
+    <attributes>
+      <menu value="Use|Use"/>
+    </attributes>
+    <weight value="5.0"/>
+    <value value="1"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+      <slot name="lhand"/>
+      <slot name="rhand"/>
+    </equipable>
+  </item>
 
   <item name="sugar mill">
     <type class="tool" subclass="sugarmill" tileid="-1"/>
