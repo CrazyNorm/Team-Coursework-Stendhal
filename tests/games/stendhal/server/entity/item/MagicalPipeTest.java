@@ -63,24 +63,39 @@ public class MagicalPipeTest {
 	// tests that creatures are charmed when the pipe is equipped
 	@Test
 	public void testCharmedWhenEquipped() {
-		// create player and a creature and make it target the player
+		// create player and pipe
+		final Item pipe = SingletonRepository.getEntityManager().getItem("magical pipe");
+		final Item pipe2 = SingletonRepository.getEntityManager().getItem("magical pipe");
 		final Player charmer = PlayerTestHelper.createPlayer("charmer");
 		final Player charmer2 = PlayerTestHelper.createPlayer("charmer2");
+		// create a creature and make it target the player
 		final Creature creature = new Creature();
 		final Creature creature2 = new Creature();
 		charmer.put("id", 1);
 		charmer2.put("id", 1);
 		creature.setTarget(charmer);
+		creature.attack();
 		creature2.setTarget(charmer2);
-		// equip the players with the pipe
-		PlayerTestHelper.equipWithItemToSlot(charmer, "magical pipe", "lhand");
-		PlayerTestHelper.equipWithItemToSlot(charmer2, "magical pipe", "rhand");
+		creature2.attack();
+		// equip players with pipes
+		// have to manually call onEquipped (done automatically in regular gameplay)
+		charmer.equip("lhand", pipe);
+		pipe.onEquipped(charmer, "lhand");
+		charmer2.equip("rhand", pipe2);
+		pipe2.onEquipped(charmer2, "rhand");	
+		
 		// check the creature's attack strategy
 		assertTrue("Charmed state not applied to creature-left hand", creature.getAttackStrategy() instanceof Charmed);
 		assertTrue("Charmed state not applied to creature-right hand", creature2.getAttackStrategy() instanceof Charmed);
-		// unequip the pipe from the player
+		
+		// unequip the pipes from the players
+		// have to manually call onUnequipped (done automatically in regular gameplay)
 		charmer.drop("magical pipe");
+		pipe.onUnequipped();
+		charmer2.drop("magical pipe");
+		pipe2.onUnequipped();
 		// check the creature's attack strategy
-		assertFalse("Charmed state not removed from creature", creature.getAttackStrategy() instanceof Charmed);
+		assertFalse("Charmed state not removed from creature-left hand", creature.getAttackStrategy() instanceof Charmed);
+		assertFalse("Charmed state not removed from creature-right hand", creature2.getAttackStrategy() instanceof Charmed);
 	}
 }
