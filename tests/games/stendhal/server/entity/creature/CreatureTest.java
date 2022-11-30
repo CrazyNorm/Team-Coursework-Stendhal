@@ -65,6 +65,42 @@ public class CreatureTest {
 		assertSame(onebyone, sevenbyseven.getNearestEnemy(5));
 		assertNull(sevenbyseven.getNearestEnemy(4));
 	}
+	// Testing for disguises for a single creature
+	@Test
+	public void testDisguises1() {
+
+		final Player onebyone = PlayerTestHelper.createPlayer("bob1");
+		onebyone.setPosition(6, 0);
+		final MockCreature sevenbyseven = new MockCreature();
+		sevenbyseven.setEntityClass("minotaur");
+
+		final StendhalRPZone zone = new StendhalRPZone("test1", 20 , 20);
+		zone.add(sevenbyseven);
+		zone.add(onebyone);
+		enemies.add(onebyone);
+		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));
+
+		onebyone.setDisguise("minotaur");
+		assertNull(sevenbyseven.getNearestEnemy(10));
+	}
+	// Testing to see if disguises for a different creature effect another creature
+	@Test
+	public void testDisguises2() {
+
+		final Player onebyone = PlayerTestHelper.createPlayer("bob1");
+		onebyone.setPosition(6, 0);
+		final MockCreature sevenbyseven = new MockCreature();
+		sevenbyseven.setEntityClass("minotaur");
+
+		final StendhalRPZone zone = new StendhalRPZone("test1", 20 , 20);
+		zone.add(sevenbyseven);
+		zone.add(onebyone);
+		enemies.add(onebyone);
+		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));
+
+		onebyone.setDisguise("demon skeleton");
+		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));
+	}
 
 
 	private static List<RPEntity> enemies  = new LinkedList<RPEntity>();
