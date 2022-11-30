@@ -1256,9 +1256,12 @@ public abstract class RPEntity extends CombatEntity {
 		
 		// checks for a creature targeting a player holding a pipe and charms it
 		if (this instanceof Creature && attackTarget.isEquipped("magical pipe")) {
-			Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
-			profiles.put("charmed", "null");
-			((Creature) this).setAIProfiles(profiles);
+			// check the magical pipe is in the right slot
+			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
+				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
+				profiles.put("charmed", "null");
+				((Creature) this).setAIProfiles(profiles);
+			}
 		}
 	}
 
@@ -3147,11 +3150,14 @@ System.out.printf("  drop: %2d %2d\n", attackerRoll, defenderRoll);
 		defender.rememberAttacker(this);
 		
 		// checks for creature attacking a player with a pipe and charms it
-		// this only catches an edge case where a creature has targetted a player but not attacked yet when the pipe is equipped
+		// this only catches an edge case where a creature has targeted a player but not attacked yet when the pipe is equipped
 		if (this instanceof Creature && attackTarget.isEquipped("magical pipe")) {
-			Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
-			profiles.put("charmed", "null");
-			((Creature) this).setAIProfiles(profiles);
+			// check the magical pipe is in the right slot
+			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
+				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
+				profiles.put("charmed", "null");
+				((Creature) this).setAIProfiles(profiles);
+			}
 		}
 
 		final int maxRange = getMaxRangeForArcher();
