@@ -70,33 +70,35 @@ public class CreatureTest {
 	public void testDisguises1() {
 
 		final Player onebyone = PlayerTestHelper.createPlayer("bob1");
-		onebyone.setPosition(6, 0);
+		onebyone.setPosition(1, 0);
 		final MockCreature sevenbyseven = new MockCreature();
 		sevenbyseven.setEntityClass("minotaur");
-
-		final StendhalRPZone zone = new StendhalRPZone("test1", 20 , 20);
+		sevenbyseven.setPosition(0, 0);
+		final StendhalRPZone zone = new StendhalRPZone("testzone", 20, 20);
 		zone.add(sevenbyseven);
 		zone.add(onebyone);
 		enemies.add(onebyone);
-		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));
+		assertSame(onebyone, sevenbyseven.getNearestEnemy(1));
 
 		onebyone.setDisguise("minotaur");
-		assertNull(sevenbyseven.getNearestEnemy(10));
+		assertNull(sevenbyseven.getNearestEnemy(1));
 	}
 	// Testing to see if disguises for a different creature effect another creature
 	@Test
 	public void testDisguises2() {
 
-		final Player onebyone = PlayerTestHelper.createPlayer("bob1");
-		onebyone.setPosition(6, 0);
+		final Player onebyone = PlayerTestHelper.createPlayer("bob2");
+		onebyone.setPosition(11, 0);
 		final MockCreature sevenbyseven = new MockCreature();
 		sevenbyseven.setEntityClass("minotaur");
-
-		final StendhalRPZone zone = new StendhalRPZone("test1", 20 , 20);
+		sevenbyseven.setPosition(10, 0);
+		final StendhalRPZone zone = new StendhalRPZone("testzone", 20, 20);
 		zone.add(sevenbyseven);
 		zone.add(onebyone);
 		enemies.add(onebyone);
-		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));
+		assertSame(onebyone, sevenbyseven.getNearestEnemy(1));
+		System.out.println(onebyone);
+		System.out.println(sevenbyseven.getNearestEnemy(1));
 
 		onebyone.setDisguise("demon skeleton");
 		assertSame(onebyone, sevenbyseven.getNearestEnemy(10));

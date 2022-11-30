@@ -999,6 +999,7 @@ public class Player extends DressedEntity implements UseListener {
 			remove(INVISIBLE);
 		}
 	}
+	public void setDisguise(final String clazz) {}
 
 	/**
 	 * Sends a message that only this player can read. Used for messages that
