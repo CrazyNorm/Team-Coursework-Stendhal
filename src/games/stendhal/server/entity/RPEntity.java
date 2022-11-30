@@ -1259,7 +1259,9 @@ public abstract class RPEntity extends CombatEntity {
 			// check the magical pipe is in the right slot
 			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
 				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
-				profiles.put("charmed", "null");
+				if (!profiles.containsKey("charmed")) {
+					profiles.put("charmed", "null");
+				}
 				((Creature) this).setAIProfiles(profiles);
 			}
 		}
@@ -3155,7 +3157,9 @@ System.out.printf("  drop: %2d %2d\n", attackerRoll, defenderRoll);
 			// check the magical pipe is in the right slot
 			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
 				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
-				profiles.put("charmed", "null");
+				if (!profiles.containsKey("charmed")) {
+					profiles.put("charmed", "null");
+				}
 				((Creature) this).setAIProfiles(profiles);
 			}
 		}

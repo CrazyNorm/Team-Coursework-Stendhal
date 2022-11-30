@@ -31,35 +31,47 @@ public class MagicalPipe extends Item {
 	// charms all enemies currently attacking when pipe is equipped
 	@Override
 	public boolean onEquipped (RPEntity equipper, String slot) {
-		// get a list of all creatures currently attacking the player
-		List<RPEntity> attackers = equipper.getAttackingRPEntities();
-		for (RPEntity attacker : attackers) {
-			// check the entity is a creature and add 'charmed' to its ai profile
-			if (attacker instanceof Creature) {
-				Map<String, String> profiles = new HashMap<String, String>(((Creature)attacker).getAIProfiles());
-				profiles.put("charmed", "null");
-				((Creature) attacker).setAIProfiles(profiles);
-			}	
+		// only runs if equipped to the correct slot
+		if (slot.equals("lhand") || slot.equals("rhand")) {
+			// get a list of all creatures currently attacking the player
+			List<RPEntity> attackers = equipper.getAttackingRPEntities();
+			for (RPEntity attacker : attackers) {
+				// check the entity is a creature and add 'charmed' to its ai profile
+				if (attacker instanceof Creature) {
+					Map<String, String> profiles = new HashMap<String, String>(((Creature)attacker).getAIProfiles());
+					if (!profiles.containsKey("charmed")) {
+						profiles.put("charmed", "null");
+					}
+					((Creature) attacker).setAIProfiles(profiles);
+				}	
+			}
+			// preserve equipper for onUnequipped
+			this.equipper = equipper;
+			return true;
 		}
-		// preserve equipper for onUnequipped
-		this.equipper = equipper;
-		return true;
+		return false;
 	}
 	
 	@Override
 	public boolean onUnequipped () {
-		// get a list of all creatures currently attacking the player
-		List<RPEntity> attackers = this.equipper.getAttackingRPEntities();
-		for (RPEntity attacker : attackers) {
-			// check the entity is a creature and remove 'charmed' from its ai profile
-			if (attacker instanceof Creature) {
-				Map<String, String> profiles = new HashMap<String, String>(((Creature)attacker).getAIProfiles());
-				profiles.remove("charmed");
-				((Creature) attacker).setAIProfiles(profiles);
+		// only runs if onEquipped has been successfully run before
+		if (equipper != null) {
+			// get a list of all creatures currently attacking the player
+			List<RPEntity> attackers = this.equipper.getAttackingRPEntities();
+			for (RPEntity attacker : attackers) {
+				// check the entity is a creature and remove 'charmed' from its ai profile
+				if (attacker instanceof Creature) {
+					Map<String, String> profiles = new HashMap<String, String>(((Creature)attacker).getAIProfiles());
+					if (profiles.containsKey("charmed")) {
+						profiles.remove("charmed", "null");
+					}
+					((Creature) attacker).setAIProfiles(profiles);
+				}
 			}
+			// clears the equipper until onEquipped() is called again
+			this.equipper = null;
+			return true;
 		}
-		// clears the equipper until onEquipped() is called again
-		this.equipper = null;
-		return true;
+		return false;
 	}
 }
