@@ -1003,7 +1003,10 @@ public class Player extends DressedEntity implements UseListener {
 	 * Applies disguises to the specific enemies
 	 * @param clazz
 	 */
-	public void setDisguise(final String clazz) {}
+	public void setDisguise(final String clazz, final String zone) {
+
+		
+	}
 
 	/**
 	 * Sends a message that only this player can read. Used for messages that
