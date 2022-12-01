@@ -1004,8 +1004,18 @@ public class Player extends DressedEntity implements UseListener {
 	 * @param clazz
 	 */
 	public void setDisguise(final String clazz, final String zone) {
-
-		
+		if (zone.contains("narwol") && clazz.contains("dark elf")) {
+			setInvisible(true);
+		}
+		else if (zone.contains("athor") && clazz.contains("minotaur")) {
+			setInvisible(true);
+		}
+		else if (zone.contains("orril") && clazz.contains("demon skeleton")) {
+			setInvisible(true);
+		}
+		else {
+			setInvisible(false);
+		}
 	}
 
 	/**
