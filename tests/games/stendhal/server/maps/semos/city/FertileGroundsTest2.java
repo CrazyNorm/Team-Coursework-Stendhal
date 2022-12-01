@@ -150,4 +150,25 @@ public class FertileGroundsTest2 {
 			}
 		}
 	}
+	
+	@Test
+	public void testConfigureZone3() {
+		final StendhalRPZone zone = new StendhalRPZone("zone");
+		final EntityManager entityMan = SingletonRepository.getEntityManager();
+		Player player = PlayerTestHelper.createPlayer("test_player");
+		zone.add(player);
+		player.setPosition(3,3);
+		final Item shovel = entityMan.getItem("shovel");
+		player.equip("bag", shovel);
+		final Shovel shovel_get = (Shovel) player.getFirstEquipped("shovel");
+		shovel_get.onUsed(player);
+		player.setPosition(10,10);
+		assertFalse(0 + ":" + 0, zone.getEntityAt(0, 0) instanceof FertileGround);
+		for (int x = 3; x < 6; x++) {
+			for (int y = 3; y < 6; y++) {
+					assertTrue(x + ":" + y,
+							zone.getEntityAt(x, y) instanceof FertileGround);
+			}
+		}
+	}
 }
