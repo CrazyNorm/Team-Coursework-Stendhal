@@ -1027,6 +1027,7 @@ public class Player extends DressedEntity implements UseListener {
         	this.setInvisible(false);
 			new GameEvent(this.getName(), INVISIBLE, "off").raise();
         }
+
 	}
 
 	/**
