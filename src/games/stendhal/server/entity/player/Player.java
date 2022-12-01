@@ -999,6 +999,10 @@ public class Player extends DressedEntity implements UseListener {
 			remove(INVISIBLE);
 		}
 	}
+	/**
+	 * Applies disguises to the specific enemies
+	 * @param clazz
+	 */
 	public void setDisguise(final String clazz) {}
 
 	/**
