@@ -62,6 +62,67 @@
       <slot name="trade"/>
     </equipable>
   </item>
+  
+  
+    <item name="elf armor">
+    <type class="armor" subclass="elf_armor" tileid="-1"/>
+    <description>You see a suit of disguise armor. It disguises you from elves.</description>
+    <implementation class-name="games.stendhal.server.entity.item.ElfArmor"/>
+    <attributes>
+      <def value="13"/>
+      <min_level value="0"/>
+    </attributes>
+    <weight value="35.0"/>
+    <value value="18000"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="armor"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+    </equipable>
+  </item>
+  
+      <item name="minotaur armor">
+    <type class="armor" subclass="minotaur_armor" tileid="-1"/>
+    <description>You see a suit of disguise armor. It disguises you from minotaur.</description>
+    <implementation class-name="games.stendhal.server.entity.item.MinotaurArmor"/>
+    <attributes>
+      <def value="13"/>
+      <min_level value="0"/>
+    </attributes>
+    <weight value="35.0"/>
+    <value value="18000"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="armor"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+    </equipable>
+  </item>
+  
+  
+      <item name="skeleton armor">
+    <type class="armor" subclass="skeleton_armor" tileid="-1"/>
+    <description>You see a suit of disguise armor. It disguises you from skeleton.</description>
+    <implementation class-name="games.stendhal.server.entity.item.SkeletonArmor"/>
+    <attributes>
+      <def value="13"/>
+      <min_level value="0"/>
+    </attributes>
+    <weight value="35.0"/>
+    <value value="18000"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="armor"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+    </equipable>
+  </item>
+  
+  
 
   <item name="chain armor">
     <type class="armor" subclass="chain_armor" tileid="-1"/>

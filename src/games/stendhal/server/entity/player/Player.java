@@ -157,6 +157,7 @@ public class Player extends DressedEntity implements UseListener {
 	 * last client action timestamp
 	 */
 	private long lastClientActionTimestamp = System.currentTimeMillis();
+	
 
 	public static void generateRPClass() {
 		try {
@@ -182,6 +183,7 @@ public class Player extends DressedEntity implements UseListener {
 		player.put("atk_xp", 0);
 		player.put("def", 10);
 		player.put("def_xp", 0);
+		
 		if (Testing.COMBAT) {
 			player.put("ratk", 10);
 			player.put("ratk_xp", 0);
@@ -998,6 +1000,33 @@ public class Player extends DressedEntity implements UseListener {
 		} else if (has(INVISIBLE)) {
 			remove(INVISIBLE);
 		}
+	}
+	
+
+	/**
+	 * Set whether this player is disguised to certain creature(s).
+	 *
+	 * @param disguise
+	 *            <code>true</code> if disguised.
+	 */
+	public void setDisguise(final String clazz, final String zone) {
+		if (zone.contains("nalwor") && clazz.contains("dark elf")) {
+			this.setInvisible(true);
+			new GameEvent(this.getName(), INVISIBLE, "on").raise();
+
+		}
+		else if (zone.contains("athor") && clazz.contains("minotaur")) {
+			this.setInvisible(true);
+			new GameEvent(this.getName(), INVISIBLE, "on").raise();
+        }
+        else if (zone.contains("orril") && clazz.contains("demon skeleton")) {
+        	this.setInvisible(true);
+			new GameEvent(this.getName(), INVISIBLE, "on").raise();
+        }
+        else {
+        	this.setInvisible(false);
+			new GameEvent(this.getName(), INVISIBLE, "off").raise();
+        }
 	}
 
 	/**
