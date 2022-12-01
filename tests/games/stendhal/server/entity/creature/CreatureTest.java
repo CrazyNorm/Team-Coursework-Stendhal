@@ -74,13 +74,13 @@ public class CreatureTest {
 		final MockCreature sevenbyseven = new MockCreature();
 		sevenbyseven.setEntityClass("minotaur");
 		sevenbyseven.setPosition(0, 0);
-		final StendhalRPZone zone = new StendhalRPZone("testzone", 20, 20);
+		final StendhalRPZone zone = new StendhalRPZone("athor cave", 20, 20);
 		zone.add(sevenbyseven);
 		zone.add(onebyone);
 		enemies.add(onebyone);
 		assertSame(onebyone, sevenbyseven.getNearestEnemy(1));
 
-		onebyone.setDisguise("minotaur");
+		onebyone.setDisguise("minotaur", zone.getName());
 		assertNull(sevenbyseven.getNearestEnemy(1));
 	}
 	// Testing for disguises for a different creature
@@ -92,13 +92,13 @@ public class CreatureTest {
 		final MockCreature sevenbyseven = new MockCreature();
 		sevenbyseven.setEntityClass("demon skeleton");
 		sevenbyseven.setPosition(5, 0);
-		final StendhalRPZone zone = new StendhalRPZone("testzone", 20, 20);
+		final StendhalRPZone zone = new StendhalRPZone("orril castle", 20, 20);
 		zone.add(sevenbyseven);
 		zone.add(onebyone);
 		enemies.add(onebyone);
 		assertSame(onebyone, sevenbyseven.getNearestEnemy(1));
 
-		onebyone.setDisguise("demon skeleton");
+		onebyone.setDisguise("demon skeleton", zone.getName());
 		assertNull(sevenbyseven.getNearestEnemy(1));
 	}
 
