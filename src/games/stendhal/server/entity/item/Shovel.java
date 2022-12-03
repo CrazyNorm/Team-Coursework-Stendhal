@@ -12,6 +12,7 @@
 package games.stendhal.server.entity.item;
 
 import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
@@ -20,6 +21,7 @@ import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.core.rule.EntityManager;
 import games.stendhal.server.entity.RPEntity;
 import games.stendhal.server.entity.player.Player;
+import games.stendhal.server.maps.semos.city.FertileGrounds;
 
 
 public class Shovel extends AreaUseItem {
@@ -48,6 +50,14 @@ public class Shovel extends AreaUseItem {
 
 	@Override
 	protected boolean onUsedInArea(final RPEntity user, final StendhalRPZone zone, final int x, final int y) {
+		final FertileGrounds fg = new FertileGrounds();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("x", String.valueOf(x) );
+		map.put("y", String.valueOf(y) );
+		map.put("width", String.valueOf(3));
+		map.put("height", String.valueOf(3));
+		map.put("name", "Garden");
+		fg.configureZone(zone, map);
 		if (user instanceof Player) {
 			final Player player = (Player) user;
 
