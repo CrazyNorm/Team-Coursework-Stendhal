@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,6 +26,7 @@ import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.entity.Entity;
 import games.stendhal.server.entity.mapstuff.spawner.FlowerGrower;
+import games.stendhal.server.entity.mapstuff.spawner.VegetableGrower;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
@@ -145,5 +147,45 @@ public class SeedTest {
 			fail("seed produced non flowergrower");
 		}
 
+	}
+	/**
+	 * Tests for if a carrot seed can be spawned in.
+	 */
+	@Test
+	public void testCarrotSeedExists() {
+		final Seed seed = (Seed) SingletonRepository.getEntityManager().getItem("carrot_seed");
+		assertNotNull(seed);
+	}
+	/**
+	 * Tests for executeCarrotSeed.
+	 */
+	@Test
+	public void testExecuteCarrotSeed() {
+		final Player player = PlayerTestHelper.createPlayer("bob");
+		assertNotNull(player);
+		final StendhalRPZone zone = new StendhalRPZone("zone");
+		SingletonRepository.getRPWorld().addRPZone(zone);
+		zone.add(player);
+
+		final Seed seed = (Seed) SingletonRepository.getEntityManager().getItem("carrot_seed");
+		assertNotNull(seed);
+		zone.add(seed);
+		seed.setPosition(1, 0);
+
+		assertTrue(seed.onUsed(player));
+		assertEquals(seed.getInfoString(), "carrot");
+		assertNotNull(player.getZone().getEntityAt(1, 0));
+
+		final Entity entity = player.getZone().getEntityAt(1, 0);
+		assertNotNull(entity);
+		if (entity instanceof VegetableGrower) {
+			final VegetableGrower vlg = (VegetableGrower) entity;
+			vlg.setToFullGrowth();
+			vlg.onUsed(player);
+			assertNotNull(player.getZone().getEntityAt(1, 0));
+			assertTrue(player.isEquipped("carrot"));
+		} else {
+			fail("seed produced non vegetablegrower");
+		}
 	}
 }

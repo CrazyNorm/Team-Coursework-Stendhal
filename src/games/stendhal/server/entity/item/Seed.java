@@ -17,6 +17,7 @@ import java.util.Map;
 import games.stendhal.server.core.events.TurnNotifier;
 import games.stendhal.server.entity.RPEntity;
 import games.stendhal.server.entity.mapstuff.spawner.FlowerGrower;
+import games.stendhal.server.entity.mapstuff.spawner.VegetableGrower;
 
 /**
  * A seed can be planted.
@@ -39,6 +40,7 @@ public class Seed extends StackableItem {
 	 */
 	public Seed(final String name, final String clazz, final String subclass, final Map<String, String> attributes) {
 		super(name, clazz, subclass, attributes);
+		if (this.getName().equals("carrot_seed")) {this.setInfoString("carrot");}
 	}
 
 	@Override
@@ -49,21 +51,30 @@ public class Seed extends StackableItem {
 				user.sendPrivateText("The " + this.getName() + " is too far away");
 				return false;
 			}
-
 			// the infostring of the seed stores what it should grow
 			final String infostring = this.getInfoString();
-			FlowerGrower flowerGrower;
-			// choose the default flower grower if there is none set
-			if (infostring == null) {
-				flowerGrower = new FlowerGrower();
+			if (infostring == "carrot") {
+				VegetableGrower vegetableGrower = new VegetableGrower("carrot");
+				user.getZone().add(vegetableGrower);
+				// add the vegetableGrower where the seed was on the ground
+				vegetableGrower.setPosition(this.getX(), this.getY());
+				// The first stage of growth happens almost immediately
+				TurnNotifier.get().notifyInTurns(3, vegetableGrower);
+				
 			} else {
-				flowerGrower = new FlowerGrower(this.getInfoString());
+				FlowerGrower flowerGrower;
+				// choose the default flower grower if there is none set
+				if (infostring == null) {
+					flowerGrower = new FlowerGrower();
+				} else {
+					flowerGrower = new FlowerGrower(this.getInfoString());
+				}
+				user.getZone().add(flowerGrower);
+				// add the FlowerGrower where the seed was on the ground
+				flowerGrower.setPosition(this.getX(), this.getY());
+				// The first stage of growth happens almost immediately
+				TurnNotifier.get().notifyInTurns(3, flowerGrower);
 			}
-			user.getZone().add(flowerGrower);
-			// add the FlowerGrower where the seed was on the ground
-			flowerGrower.setPosition(this.getX(), this.getY());
-			// The first stage of growth happens almost immediately
-			TurnNotifier.get().notifyInTurns(3, flowerGrower);
 			// remove the seed now that it is planted
 			this.removeOne();
 			return true;
