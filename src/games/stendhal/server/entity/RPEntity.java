@@ -15,6 +15,7 @@ package games.stendhal.server.entity;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -1252,6 +1253,18 @@ public abstract class RPEntity extends CombatEntity {
 			attackTarget.attackSources.remove(this);
 		}
 		attackTarget = target;
+		
+		// checks for a creature targeting a player holding a pipe and charms it
+		if (this instanceof Creature && attackTarget.isEquipped("magical pipe")) {
+			// check the magical pipe is in the right slot
+			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
+				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
+				if (!profiles.containsKey("charmed")) {
+					profiles.put("charmed", "null");
+				}
+				((Creature) this).setAIProfiles(profiles);
+			}
+		}
 	}
 
 	/** Modify the entity to stop attacking. */
@@ -3137,6 +3150,19 @@ System.out.printf("  drop: %2d %2d\n", attackerRoll, defenderRoll);
 		// isInZoneandNotDead(defender);
 
 		defender.rememberAttacker(this);
+		
+		// checks for creature attacking a player with a pipe and charms it
+		// this only catches an edge case where a creature has targeted a player but not attacked yet when the pipe is equipped
+		if (this instanceof Creature && attackTarget.isEquipped("magical pipe")) {
+			// check the magical pipe is in the right slot
+			if (attackTarget.isEquippedItemInSlot("lhand", "magical pipe") || attackTarget.isEquippedItemInSlot("rhand", "magical pipe") ) {
+				Map<String, String> profiles = new HashMap<String, String>(((Creature)this).getAIProfiles());
+				if (!profiles.containsKey("charmed")) {
+					profiles.put("charmed", "null");
+				}
+				((Creature) this).setAIProfiles(profiles);
+			}
+		}
 
 		final int maxRange = getMaxRangeForArcher();
 		/*
