@@ -219,3 +219,13 @@ Developers who have contributed to Stendhal by providing bug fixes
   · Players can’t choose what masks they get from Fidorea bug fix
 - Daniel Gardiner
   · Cheating on Zekiel's Practical Test bug fix
+  
+Developers who added four features in version 1.41uom
+- Rishi Ravikumar and Ryan Sullivan
+  · Hand carts feature
+- Alexander Hargrave and Liam Turner
+  · Disguises uniform feature
+- Junle Yu and Hank Bell
+  · Grow things in garden feature
+- Daniel Gardiner and Entian Tu
+  · Magical Pipe feature

@@ -3,6 +3,14 @@ Changelog
 ---------
 
 
+1.41uom
+
+*feature*
+- New item:"hand cart". It can store items and it can be pushed to move.
+- New item:"magical pipe". It can stop hostile creatures from attacking players when they are equipped with it.
+- Add some equipments, which can make player invisible to certain creatures.
+- Add a new type of seed item that allows players to grow vegetables.
+
 1.40uom
 
 *feature*
